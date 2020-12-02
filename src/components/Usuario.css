@@ -1,0 +1,47 @@
+.divPadre{
+    width: 80%;
+    margin: 2en auto;
+}
+
+.DivBase{
+    display: grid;
+    text-align: center;
+    color: black;
+}
+
+.formBase{
+    display: grid;
+    margin: auto; 
+}
+
+input[type=text]{
+    border-radius: 8px;
+    padding: .7em;
+    border: 1px solid #000000;
+    background: linear-gradient(144deg, rgba(16,132,76,1) 0%, rgba(25,227,130,1) 100%);
+    width: 50em;
+    height: 2.2em;
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    margin: auto;
+}
+
+
+label{
+    font-weight: bold;
+    margin: 0.5em 0;
+}
+
+.btnAce{
+    position: relative;
+    width: 5em;
+    height: 3em;
+    border: none;
+    border-radius: 2%;
+    background: linear-gradient(144deg, rgba(16,132,76,1) 0%, rgba(25,227,130,1) 100%);
+    float: right;
+}
+
+.divdesa{
+    display: none;
+}
