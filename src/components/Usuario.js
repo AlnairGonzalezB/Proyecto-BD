@@ -6,6 +6,7 @@ import "./Usuario.css"
 const Usuario = () => {
     const [usuarios, setUsuarios] = useState([])
     const [rentas, setRentas] = useState([])
+    const [ventas, setVentas] = useState([])
     const [usuarioId, setUsuarioId] = useState([])
     const [membresia, setMembresia] = useState([])
     const [nombres, setNombres] = useState([])
@@ -27,10 +28,18 @@ const Usuario = () => {
         setRentas(arrayRentas)
         console.log(rentas)
     }
+
+    const getVenta = async () =>{
+      const data = await db.collection('venta').get()
+      const arrayVentas = data.docs.map(doc => ({id: doc.id, ...doc.data()}))
+      setVentas(arrayVentas)
+      console.log(ventas)
+  }
   
       useEffect(()=>{
         getUsuarios()
         getRenta()
+        getVenta()
      },[]) // eslint-disable-line react-hooks/exhaustive-deps
   
      const limpiarIns =() =>{
@@ -119,30 +128,28 @@ const Usuario = () => {
                   <button className = "btn btn-danger btn-block " onClick={() => activarEliminar(usuarios)}>No</button>
                 </h> 
                 : <button className = "btn btn-danger btn-block " onClick={() => activarEliminar(usuarios)}>Eliminar</button>}
+                <p>Rentas y compras del usuario</p>
                 {
                 rentas.map(rentas =>(
                     <lu key = {rentas.id}>
-                        {usuarios.UsuarioId === rentas.ClienteId &&(
-                            <ul> Id renta: {rentas.RentaId}</ul>
+                        {usuarios.id === rentas.Clienteid &&(
+                            <ul> Id renta: {rentas.id}</ul>
                         )
                         }
                     </lu>
                     ))
             }
-            <button onClick={() => activarRenta(usuarios)}>Rentar</button>
-            {modoRenta ? 
-             <form className = "forBase" onSubmit = {modoEdicion ? editarUsuario : agregarUsuario}>
-             <div className="DivBase">
-               <label>Nombre</label>
-               <input type="text" className="form-control" value={nombres} onChange={e => setNombres(e.target.value)} required></input>
-               <label>Id</label>
-               <input type="text" className="form-control" value={usuarioId} onChange={e => setUsuarioId(e.target.value)} required></input>
-               <label>Membresia</label>
-               <input type="text" className="form-control" value={membresia} onChange={e => setMembresia(e.target.value)} required></input>
-             </div>
-               <button type="submit" className="btnAce">Aceptar</button>
-            </form>: <p></p> 
-                }
+            {
+                ventas.map(ventas =>(
+                    <lu key = {ventas.id}>
+                        {usuarios.id === ventas.ClienteId &&(
+                            <ul> Id compra: {ventas.id}</ul>
+                        )
+                        }
+                    </lu>
+                    ))
+            }
+            <p></p>
             </li>
             ))
             }
